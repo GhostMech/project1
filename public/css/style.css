@@ -1,3 +1,24 @@
-body {
-    background-color: yellowgreen;
+.movie {
+    width:  90px;
+    height: 90px;
+    background-color: #3D9970;
+    color: white;
+    margin: 10px;
+}
+
+.details {
+    width: 240px;
+    margin: 20px;
+    background-color: blue;
+    color: white;
+    float: left;
+}
+
+.selected {
+    border: 2px #01FF70;
+}
+
+#movies {
+    width: 120px;
+    float: left;
 }
