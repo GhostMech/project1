@@ -6,6 +6,11 @@ const path     = require('path')
 const fs       = require('fs')
 const port     = 3000
 
+
+var debug = require('debug')('http')
+, name = 'My App'
+
+debug('booting %o', name)
 /*
 http.createServer( (req, res) => {
     res.end('Simple basic server is up.');
@@ -21,7 +26,8 @@ app.get('/', (req, res, next) => {
     res.sendFile(html);
 })
 app.get('/movies', (req, res, next) => {
-    res.sendFile('./ movies.json');
+    let movies = path.resolve(__dirname + '/movies.json')
+    res.sendFile(movies)
 })
 
 http.createServer(app).listen(port)
