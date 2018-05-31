@@ -7,7 +7,7 @@ const fs       = require('fs')
 const port     = 3000
 
 
-var debug = require('debug')('http')
+var debug = require('debug')('express')
 , name = 'My App'
 
 debug('booting %o', name)
@@ -28,6 +28,10 @@ app.get('/', (req, res, next) => {
 app.get('/movies', (req, res, next) => {
     let movies = path.resolve(__dirname + '/movies.json')
     res.sendFile(movies)
+})
+app.get('/chai', (req, res, next) => {
+    let chai = path.resolve(__dirname + '/public/chai.html')
+    res.sendFile(chai)
 })
 
 http.createServer(app).listen(port)

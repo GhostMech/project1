@@ -2,7 +2,22 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
 const Backbone = require('backbone')
 const Movie = require('models/movie')
 const Movies = Backbone.Collection.extend({
-    model: Movie
+    model: Movie,
+
+    // Unselect all models
+    resetSelected: function() {
+        this.each(model => {
+            model.set({"selected": false})
+        })
+    },
+
+    // Select a specific model from the collection
+    selectByID: function(id) {
+        this.resetSelected()
+        let movie = this.get(id)
+        movie.set({"selected": true})
+        return movie.id
+    }
 })
 module.exports = Movies
 },{"backbone":4,"models/movie":2}],2:[function(require,module,exports){
@@ -14003,13 +14018,7 @@ return jQuery;
 }());
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"app":[function(require,module,exports){
-const Backbone = require('backbone')
-const Movies   = require('collections/movies')
-const data     = require('./movies.json')
-var movies     = new Movies(data)
-module.exports = movies
-},{"./movies.json":3,"backbone":4,"collections/movies":1}],"monitor":[function(require,module,exports){
+},{}],"Monitor":[function(require,module,exports){
 const _        = require('underscore')
 const Backbone = require('backbone')
 const Monitor  = function(collection) {
@@ -14019,4 +14028,10 @@ const Monitor  = function(collection) {
     })
 }
 module.exports = Monitor
-},{"backbone":4,"underscore":6}]},{},[]);
+},{"backbone":4,"underscore":6}],"app":[function(require,module,exports){
+const Backbone = require('backbone')
+const Movies   = require('collections/movies')
+const data     = require('./movies.json')
+var movies     = new Movies(data)
+module.exports = movies
+},{"./movies.json":3,"backbone":4,"collections/movies":1}]},{},[]);
