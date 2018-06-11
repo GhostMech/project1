@@ -2,10 +2,10 @@ const Backbone = require('backbone')
 const $        = require('jquery')
 Backbone.$ = $  // Not working for me, yet
 
-const Movies   = require('collections/movies')
+const Movies   = require('./collections/movies')
 const data     = require('./movies.json')
 var movies     = new Movies(data)
-var MovieView  = require('views/movie')
+var MovieView  = require('./views/movie')
 
 // "Because we want to export the modules from the data layer, as well as view layer, 
 // we replace the old definition with:"

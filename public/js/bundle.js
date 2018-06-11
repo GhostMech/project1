@@ -1,6 +1,6 @@
 require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const Backbone = require('backbone')
-const Movie = require('models/movie')
+const Movie = require('../models/movie')
 const Movies = Backbone.Collection.extend({
     model: Movie,
 
@@ -20,7 +20,7 @@ const Movies = Backbone.Collection.extend({
     }
 })
 module.exports = Movies
-},{"backbone":4,"models/movie":2}],2:[function(require,module,exports){
+},{"../models/movie":2,"backbone":4}],2:[function(require,module,exports){
 const Backbone = require('backbone')
 var Movie = Backbone.Model.extend({
     defaults: {
@@ -14021,6 +14021,7 @@ return jQuery;
 },{}],7:[function(require,module,exports){
 // first version of the view
 const $        = require('jquery')
+const _        = require('underscore')
 const Backbone = require('backbone')
 
 var MovieView = Backbone.View.extend({
@@ -14032,18 +14033,23 @@ var MovieView = Backbone.View.extend({
         this.$el.html(this.model.get('title'))
         this.$el.toggleClass('selected', this.model.get('selected'))
         return this
+    },
+
+    // Initialize?
+    initialize: function() {
+        this.listenTo(this.model, 'change:title', this.render)
     }
 })
 module.exports = MovieView
-},{"backbone":4,"jquery":5}],"app":[function(require,module,exports){
+},{"backbone":4,"jquery":5,"underscore":6}],"app":[function(require,module,exports){
 const Backbone = require('backbone')
 const $        = require('jquery')
 Backbone.$ = $  // Not working for me, yet
 
-const Movies   = require('collections/movies')
+const Movies   = require('./collections/movies')
 const data     = require('./movies.json')
 var movies     = new Movies(data)
-var MovieView  = require('views/movie')
+var MovieView  = require('./views/movie')
 
 // "Because we want to export the modules from the data layer, as well as view layer, 
 // we replace the old definition with:"
@@ -14056,4 +14062,4 @@ module.exports = { movies: movies, MovieView: MovieView }
  * 3. Capture click events from views and selecting a Movie model
  * 4. Re-render MoviesList after a movie was selected.
  */
-},{"./movies.json":3,"backbone":4,"collections/movies":1,"jquery":5,"views/movie":7}]},{},[]);
+},{"./collections/movies":1,"./movies.json":3,"./views/movie":7,"backbone":4,"jquery":5}]},{},[]);
