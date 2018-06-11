@@ -1,0 +1,17 @@
+const Backbone = require('backbone')
+
+// The UI for selecting a movie
+var MoviewView = require('./movie')
+var MoviesList = Backbone.View.extend({
+    tagName: 'section',
+
+    // Render
+    render: function() {
+        var moviesView = this.collection.map(function(movie) {
+            return (new MoviewView({model: movie})).render().el
+        })
+        this.$el.html(moviesView)
+        return this
+    }
+})
+module.exports = MoviesList

@@ -14027,10 +14027,15 @@ const Backbone = require('backbone')
 var MovieView = Backbone.View.extend({
     tagName: 'article',
     className: 'movie',
+    template: '<h1><%= title %><hr></h1>',
 
     // Render function
     render: function () {
+        /*
         this.$el.html(this.model.get('title'))
+        */
+        var tmpl = _.template(this.template)
+        this.$el.html(tmpl(this.model.toJSON()))
         this.$el.toggleClass('selected', this.model.get('selected'))
         return this
     },
@@ -14041,7 +14046,25 @@ var MovieView = Backbone.View.extend({
     }
 })
 module.exports = MovieView
-},{"backbone":4,"jquery":5,"underscore":6}],"app":[function(require,module,exports){
+},{"backbone":4,"jquery":5,"underscore":6}],8:[function(require,module,exports){
+const Backbone = require('backbone')
+
+// The UI for selecting a movie
+var MoviewView = require('./movie')
+var MoviesList = Backbone.View.extend({
+    tagName: 'section',
+
+    // Render
+    render: function() {
+        var moviesView = this.collection.map(function(movie) {
+            return (new MoviewView({model: movie})).render().el
+        })
+        this.$el.html(moviesView)
+        return this
+    }
+})
+module.exports = MoviesList
+},{"./movie":7,"backbone":4}],"app":[function(require,module,exports){
 const Backbone = require('backbone')
 const $        = require('jquery')
 Backbone.$ = $  // Not working for me, yet
@@ -14050,11 +14073,12 @@ const Movies   = require('./collections/movies')
 const data     = require('./movies.json')
 var movies     = new Movies(data)
 var MovieView  = require('./views/movie')
+var MoviesList = require('./views/moviesList')
 
 // "Because we want to export the modules from the data layer, as well as view layer, 
 // we replace the old definition with:"
 //module.exports = movies
-module.exports = { movies: movies, MovieView: MovieView }
+module.exports = { movies: movies, MovieView: MovieView, MoviesList: MoviesList }
 
 /* The Ch3 strategy:
  * 1. Create multiple Movie views for the items in a Movies collection
@@ -14062,4 +14086,4 @@ module.exports = { movies: movies, MovieView: MovieView }
  * 3. Capture click events from views and selecting a Movie model
  * 4. Re-render MoviesList after a movie was selected.
  */
-},{"./collections/movies":1,"./movies.json":3,"./views/movie":7,"backbone":4,"jquery":5}]},{},[]);
+},{"./collections/movies":1,"./movies.json":3,"./views/movie":7,"./views/moviesList":8,"backbone":4,"jquery":5}]},{},[]);

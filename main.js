@@ -6,11 +6,12 @@ const Movies   = require('./collections/movies')
 const data     = require('./movies.json')
 var movies     = new Movies(data)
 var MovieView  = require('./views/movie')
+var MoviesList = require('./views/moviesList')
 
 // "Because we want to export the modules from the data layer, as well as view layer, 
 // we replace the old definition with:"
 //module.exports = movies
-module.exports = { movies: movies, MovieView: MovieView }
+module.exports = { movies: movies, MovieView: MovieView, MoviesList: MoviesList }
 
 /* The Ch3 strategy:
  * 1. Create multiple Movie views for the items in a Movies collection
