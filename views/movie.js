@@ -22,6 +22,13 @@ var MovieView = Backbone.View.extend({
     // Initialize?
     initialize: function() {
         this.listenTo(this.model, 'change:title', this.render)
+    },
+    events: {
+        'click': '_selectMovie'
+    },
+    _selectMovie: function(ev) {
+        ev.preventDefault()
+        console.log($(ev.currentTarget).html())
     }
 })
 module.exports = MovieView

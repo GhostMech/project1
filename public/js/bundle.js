@@ -14043,6 +14043,13 @@ var MovieView = Backbone.View.extend({
     // Initialize?
     initialize: function() {
         this.listenTo(this.model, 'change:title', this.render)
+    },
+    events: {
+        'click': '_selectMovie'
+    },
+    _selectMovie: function(ev) {
+        ev.preventDefault()
+        console.log($(ev.currentTarget).html())
     }
 })
 module.exports = MovieView
@@ -14050,14 +14057,14 @@ module.exports = MovieView
 const Backbone = require('backbone')
 
 // The UI for selecting a movie
-var MoviewView = require('./movie')
+var MovieView = require('./movie')
 var MoviesList = Backbone.View.extend({
     tagName: 'section',
 
     // Render
     render: function() {
         var moviesView = this.collection.map(function(movie) {
-            return (new MoviewView({model: movie})).render().el
+            return (new MovieView({model: movie})).render().el
         })
         this.$el.html(moviesView)
         return this
