@@ -1,10 +1,12 @@
+require('dotenv').config()
+
 const http     = require('http')
 const express  = require('express')
 const Backbone = require('backbone')
 const logger   = require('morgan')
 const path     = require('path')
 const fs       = require('fs')
-const port     = 3000
+const port     = (process.env.PORT || 3000)
 
 
 var debug = require('debug')('express')
